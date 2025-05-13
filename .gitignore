@@ -1,0 +1,19 @@
+# Python
+venv/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.sqlite3
+backend/staticfiles/
+*.env
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Misc
+*.log
+.DS_Store

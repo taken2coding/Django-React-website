@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: my-secure-site
+    env: python
+    buildCommand: |
+      pip install -r backend/requirements.txt
+      cd frontend && npm install && npm run build && cd ..
+      python backend/manage.py collectstatic --noinput
+    startCommand: gunicorn --chdir backend myapp.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.1
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: False
+      - key: DB_NAME
+        fromDatabase:
+          name: mydb
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: mydb
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: mydb
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: mydb
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: mydb
+          property: port
+
+databases:
+  - name: mydb
+    databaseName: mydb
+    user: myuser
