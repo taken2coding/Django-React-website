@@ -11,31 +11,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.12.1
       - key: DJANGO_SECRET_KEY
-        sync: false
+        sync: False
       - key: DEBUG
         value: False
-      - key: DB_NAME
-        fromDatabase:
-          name: mydb
-          property: database
-      - key: DB_USER
-        fromDatabase:
-          name: mydb
-          property: user
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: mydb
-          property: password
-      - key: DB_HOST
-        fromDatabase:
-          name: mydb
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: mydb
-          property: port
 
-databases:
-  - name: mydb
-    databaseName: mydb
-    user: myuser
