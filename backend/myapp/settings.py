@@ -55,7 +55,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myapp.wsgi.application'
-
 # Use SQLite3
 DATABASES = {
     'default': {
@@ -63,7 +62,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'mydb'),
+        'USER': os.getenv('DB_USER', 'myuser'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'mypassword'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
+"""
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -94,7 +104,6 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'https://your-render-domain.onrender.com',
 ]
 
 LANGUAGE_CODE = 'en-us'
