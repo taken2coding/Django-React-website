@@ -1,15 +1,14 @@
 import os
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
-
-load_dotenv()
+from decouple import config
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 
-DEBUG = os.getenv('DEBUG') == 'True'
+DEBUG = config('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -20,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'corsheaders',
     'api',
@@ -58,7 +58,6 @@ TEMPLATES = [
 ]
 CORS_ALLOWED_ORIGINS = [
     'https://django-react-website.onrender.com',
-
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -71,14 +70,7 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 AUTH_USER_MODEL = "api.CustomUser"
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
 
 AUTH_PASSWORD_VALIDATORS = [
