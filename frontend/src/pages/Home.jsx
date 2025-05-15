@@ -7,7 +7,7 @@ function Home() {
         <Card.Body>
           <Card.Title>Welcome to My Secure Site</Card.Title>
           <Card.Text>
-            This is a secure website built with Django and React.
+            This is a secure website built with Django and React and deployed using render.
           </Card.Text>
         </Card.Body>
       </Card>

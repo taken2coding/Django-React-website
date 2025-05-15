@@ -8,9 +8,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
-DEBUG = config('DEBUG') == 'True'
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000', 'http://localhost:8000',
+    'https://django-react-website.onrender.com',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -57,6 +62,8 @@ TEMPLATES = [
     },
 ]
 CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost',
     'https://django-react-website.onrender.com',
 ]
 
@@ -113,9 +120,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']  # Optional, for additional static file
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Security settings
 SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'Lax'
