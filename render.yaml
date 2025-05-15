@@ -1,19 +1,19 @@
 services:
   - type: web
     name: my-secure-site
-    env: python
     buildCommand: |
       pip install -r backend/requirements.txt
       cd frontend && npm install && npm run build && cd ..
       python backend/manage.py collectstatic --noinput
     startCommand: gunicorn --chdir backend myapp.wsgi:application
+    runtime: python
     envVars:
       - key: PYTHON_VERSION
         value: 3.11
       - key: DJANGO_SECRET_KEY
         sync: false
       - key: DEBUG
-        value: False
+        value: 0
       - key: DB_NAME
         fromDatabase:
           name: mydb
