@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['https://django-react-website.onrender.com']
+ALLOWED_HOSTS = ['https://django-react-website.onrender.com/',]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,9 +26,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -41,7 +41,7 @@ ROOT_URLCONF = 'myapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'frontend/build'],  # Path to React build,
+        'DIRS': [],  # Path to React build,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,6 +52,15 @@ TEMPLATES = [
             ],
         },
     },
+]
+CORS_ALLOWED_ORIGINS = [
+    'https://django-react-website.onrender.com',
+
+]
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
 ]
 
 WSGI_APPLICATION = 'myapp.wsgi.application'
@@ -97,11 +106,6 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'https://django-react-website.onrender.com',
-    'http://localhost:5173',
-
-]
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -114,9 +118,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']  # Optional, for additional static file
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = not DEBUG
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
