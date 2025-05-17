@@ -36,6 +36,7 @@ rm -rf build
 # Step 4: Run Django collectstatic
 echo "Running Django collectstatic..."
 cd "$BACKEND_DIR"
+pip install -r requirements.txt
 python manage.py collectstatic --noinput || {
     echo "Error: collectstatic failed"
     exit 1
