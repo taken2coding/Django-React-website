@@ -41,6 +41,8 @@ python manage.py collectstatic --noinput || {
     echo "Error: collectstatic failed"
     exit 1
 }
+python manage.py migrate
 
 echo "Build completed successfully!"
 echo "Static files are in $STATIC_ROOT"
+echo "front end Static files are in $FRONTEND_STATIC_DIR"

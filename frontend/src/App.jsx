@@ -1,43 +1,20 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import About from './pages/About';
-import Login from './pages/Login';
-
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    setIsAuthenticated(!!token);
+    fetch('/api/sample/')
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message))
+      .catch((err) => console.error(err));
   }, []);
 
-  const handleLogin = () => setIsAuthenticated(true);
-  const handleLogout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    setIsAuthenticated(false);
-  };
-
   return (
-    <Router>
-      <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/about"
-          element={
-            isAuthenticated ? <About /> : <Navigate to="/login" replace />
-          }
-        />
-        <Route
-          path="/login"
-          element={<Login onLogin={handleLogin} />}
-        />
-      </Routes>
-    </Router>
+    <div>
+      <h1>My React App</h1>
+      <p>{message}</p>
+    </div>
   );
 }
 

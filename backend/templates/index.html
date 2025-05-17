@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My React App</title>
+    {% if manifest %}
+      <link rel="stylesheet" href="{% static 'frontend/'|add:manifest.css.main %}" />
+    {% endif %}
+  </head>
+  <body>
+    <div id="root"></div>
+    {% if manifest %}
+      <script type="module" src="{% static 'front/'|add:manifest.js.main %}"></script>
+    {% else %}
+      <script type="module" src="{% static 'frontend/assets/main.js' %}"></script>
+    {% endif %}
+  </body>
+</html>
