@@ -6,13 +6,13 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://django-react-website.onrender.com/',
+        target: 'https://django-react-website.onrender.com',
         changeOrigin: true,
       },
     },
   },
   build: {
-    outDir: '../backend/staticfiles',
+    outDir: '../backend/staticfiles/frontend',
     emptyOutDir: true,
   },
 })

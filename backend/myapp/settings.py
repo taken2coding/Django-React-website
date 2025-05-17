@@ -32,8 +32,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -115,8 +115,11 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Optional, for additional static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/backend')
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',# Optional, for additional static files
+    BASE_DIR / 'staticfiles/frontend',
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
