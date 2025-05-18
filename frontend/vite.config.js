@@ -9,7 +9,7 @@ export default defineConfig({
 
   // Base path for assets (use '/static/' for Django, '/' for standalone)
 
-
+base: '/static/',
   // Build configuration
   build: {
     // Output directory (relative to root), aligns with Django's staticfiles
