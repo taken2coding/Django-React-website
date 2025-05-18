@@ -8,7 +8,7 @@ export default defineConfig({
   root: '.',
 
   // Base path for assets (use '/static/' for Django, '/' for standalone)
-  base: '/static/',
+
 
   // Build configuration
   build: {
@@ -31,12 +31,12 @@ export default defineConfig({
     // Proxy API and admin requests to Django backend during development
     proxy: {
       '/api': {
-        target: 'https://django-react-website.onrender.com/',
+        target:  'http://localhost:8000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
       '/admin': {
-        target: 'https://django-react-website.onrender.com/',
+        target: '127.0.0.1:8000',
         changeOrigin: true,
       },
     },

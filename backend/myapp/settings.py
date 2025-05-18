@@ -12,10 +12,6 @@ DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000', 'http://localhost:8000',
-    'https://django-react-website.onrender.com',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,7 +38,27 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:8000', 'http://localhost:8000',
+    'https://django-react-website.onrender.com',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'https://django-react-website.onrender.com',
+]
+
+# Preflight Requests: If Django rejects OPTIONS requests, add:
+#CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+#CORS_ALLOW_HEADERS = ['accept', 'authorization', 'content-type', 'x-csrftoken']
+
+# CORS_ALLOW_ALL_ORIGINS = True
+
+
 
 ROOT_URLCONF = 'myapp.urls'
 
@@ -61,16 +77,7 @@ TEMPLATES = [
         },
     },
 ]
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:8000',
-    'http://localhost',
-    'https://django-react-website.onrender.com',
-]
 
-CORS_ALLOW_HEADERS = [
-    'authorization',
-    'content-type',
-]
 
 WSGI_APPLICATION = 'myapp.wsgi.application'
 
@@ -94,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+'''
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -107,7 +114,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
-
+'''
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -122,7 +129,7 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+'''
 # Security settings
 SECURE_SSL_REDIRECT = True
 SECURE_BROWSER_XSS_FILTER = True
@@ -130,3 +137,4 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'Lax'
+'''
