@@ -31,12 +31,12 @@ export default defineConfig({
     // Proxy API and admin requests to Django backend during development
     proxy: {
       '/api': {
-        target:  'http://localhost:8000',
+        target:  'https://django-react-website.onrender.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
       '/admin': {
-        target: '127.0.0.1:8000',
+        target: 'https://django-react-website.onrender.com',
         changeOrigin: true,
       },
     },
