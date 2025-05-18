@@ -7,7 +7,7 @@ const SearchInput = () => {
     const [results, setResults] = useState([]);
 
     const handleSearch = async () => {
-        const response = await axios.get(`http://localhost:8000/api/books/?q=${query}`);
+        const response = await axios.get(`https://django-react-website.onrender.com/api/books/?q=${query}`);
         setResults(response.data);
     };
 
