@@ -8,7 +8,7 @@ const SearchInput = () => {
     const [error, setError] = useState(null);
 
     const handleSearch = async () => {
-        const response = await axios.get(`http://127.0.0.1:8000/api/books/?q=${query}`,
+        const response = await axios.get(`https://django-react-website.onrender.com/api/books/?q=${query}`,
         {
             headers: {
                 'Authorization': `Api-Key ${import.meta.env.VITE_API_KEY}`,
