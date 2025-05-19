@@ -5,14 +5,26 @@ import SearchResults from './SearchResults';
 const SearchInput = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [error, setError] = useState(null);
 
     const handleSearch = async () => {
-        const response = await axios.get(`https://django-react-website.onrender.com/api/books/?q=${query}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/books/?q=${query}`,
+        {
+            headers: {
+                'Authorization': `Api-Key ${import.meta.env.VITE_API_KEY}`,
+       },
+    })
+    .then(response => {
         setResults(response.data);
-    };
+})
+.catch(error => {
+  setError(error.message);
+});
+  };
 
     return (
         <div>
+
             <div className="searchInput">
             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
             <button onClick={handleSearch}>Search</button>

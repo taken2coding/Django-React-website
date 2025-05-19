@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import CustomUser, UserProfile, Book
+from rest_framework_api_key.models import APIKey
 
 
 @admin.register(CustomUser)
@@ -17,3 +18,6 @@ class UserProfileAdmin(admin.ModelAdmin):
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title','author',)
     search_fields = ('title','author',)
+
+
+# admin.site.register(APIKey)
