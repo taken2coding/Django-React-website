@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import timedelta
 from decouple import config
 import dj_database_url
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,20 +24,10 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'rest_framework',
     'rest_framework_api_key',
+    'rest_framework_simplejwt',
     'corsheaders',
     'api',
 ]
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',  # Allow all by default
-        # 'rest_framework_api_key.permissions.HasAPIKey', use this for global api key restriction
-
-    ),
-
-
-}
 
 
 MIDDLEWARE = [
@@ -52,7 +43,30 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',  # Allow all by default
+        # 'rest_framework_api_key.permissions.HasAPIKey', use this for global api key restriction
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # For admin/portal
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'api': '1000/day',
+    },
+}
 
+# JWT settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
@@ -67,6 +81,26 @@ CORS_ALLOWED_ORIGINS = [
     'https://django-react-website.onrender.com',
 ]
 
+CORS_ALLOW_CREDENTIALS = True  # For session auth or cookies
+'''
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'api-key',  # Add your custom header here
+]
+'''
+
+# Authentication
+LOGIN_REDIRECT_URL = '/developer-portal/'
+LOGOUT_REDIRECT_URL = '/developer-portal/'
+
 # Preflight Requests: If Django rejects OPTIONS requests, add:
 #CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 #CORS_ALLOW_HEADERS = ['accept', 'authorization', 'content-type', 'x-csrftoken']
@@ -79,7 +113,12 @@ ROOT_URLCONF = 'myapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'staticfiles/frontend')],  # Path to React build,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'staticfiles/frontend'),
+            BASE_DIR / 'templates'
+
+        ],  # Path to React build,
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,16 +154,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-'''
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-'''
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'

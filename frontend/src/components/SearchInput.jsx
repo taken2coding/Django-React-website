@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SearchResults from './SearchResults';
+import Profile from './Profile';
 
 const SearchInput = () => {
     const [query, setQuery] = useState('');
@@ -31,6 +32,10 @@ const SearchInput = () => {
             </div>
             <div className="result">
             <SearchResults results={results} />
+            </div>
+
+            <div className="result">
+            <Profile token={token} profile={profile} error={error}/>
             </div>
         </div>
     );
